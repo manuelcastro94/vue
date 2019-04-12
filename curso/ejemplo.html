@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>VueJS</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1 v-once>{{title}}</h1>
+            <p>{{sayHello()}} - <a v-bind:href="link">Google</a></p>
+            <br>
+            <p v-html="finishedLink"></p>
+        </div>
+        
+        <script>
+            new Vue({
+                el:"#app",
+                data:{
+                    title:'Hello World!',
+                    link: 'http://google.com',
+                    finishedLink:'<a href="http://google.com">Google</a>'
+                },
+                methods:{
+                    sayHello: function(){
+                        this.title = 'Hello!';
+                        return this.title;
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
