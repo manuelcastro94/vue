@@ -1,0 +1,47 @@
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+
+<div id="app">
+    <button v-on:click="counter++">Increase</button>
+    <button v-on:click="counter--">Decrease</button>
+    <button v-on:click="secondCounter++">Increase Second</button>
+    <p>Counter: {{counter}} | {{secondCounter}}</p>
+    <p>Result: {{ result() }} | {{output}} </p>
+</div>
+<script>
+    //v-on -> @
+    //v-bind -> :
+    new Vue({
+        el: '#app', // el: se conecta al DOM
+        data: {  //data: Guarda la data que se va a utilizar
+            counter: 0,
+            secondCounter: 0
+        },
+
+        computed: {//propiedades dependientes 
+            //Si sabe que sucede dentro de las computed, y por lo tanto, no ejecuta siempre una funcion si no cambiaron valores que se utilizan.
+            output: function(){ //"Cachea" el resultado. No se reaculcula cada vez que se actualza el DOM
+                console.log('Computed')
+                return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
+            }
+        },
+        watch: { //Ejecutan codigo cuando cambian los datos
+            //tiene que matchear con alguna propiedad que tenga en data
+            counter: function(value){  //se va a ejecutar esta funcion cada vez que counter cambie. value se pasa automaticamente
+                //Permite el asincronismo, las computed no lo permiten
+                var vm=this;
+                setTimeout(function(){
+                    vm.counter = 0;   //yo puedo seguir incrementando, y luego de dos segundos, vuelve a 0
+                },2000)
+            }
+                
+        },
+        methods: { //metodos de la instancia de Vue
+            //Vue js no sabe que hay adentro de cada funcion, entonces se ejecuta cada ves que cambia algo en data
+            result: function() {
+                console.log('Method')
+                return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
+            }
+        }
+    });
+
+</script>

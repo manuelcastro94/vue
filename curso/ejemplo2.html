@@ -14,11 +14,14 @@
     </head>
     <body>
         <div id="app">
-            <button v-on:click="increase(2,$event)">Click me</button>  <!--click es un evento del DOM para los botones-->
-            <p>{{counter}}</p>
+            <!--<button v-on:click="increase(2,$event)">Click me</button> --> <!--click es un evento del DOM para los botones-->
+            <<button v-on:click="counter++">Click me</button> <!--click es un evento del DOM para los botones-->
+
+            <p>{{counter * 2 > 10 ? 'Greater than 10' : 'Smaller than 10'}}</p>
             <p v-on:mousemove="updateCoordinates">Coordinates {{x}} | {{y}} - 
-                <span v-on:mousemove="">Dead Spot</span>
+                <span v-on:mousemove.stop="">Dead Spot</span>
             </p>
+            <input type="text" v-on:keyup.enter.space="alertMe">
         </div>
     </body>
     <script>
@@ -36,6 +39,9 @@
                 updateCoordinates: function(event){
                     this.x = event.clientX;
                     this.y = event.clientY;
+                },
+                alertMe : function (){
+                    alert('Alert!');
                 }
             }
         });
